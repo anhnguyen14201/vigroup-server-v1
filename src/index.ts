@@ -41,9 +41,9 @@ app.get('/api/product', (req, res) => {
 })
 
 // 10. Serve React app cho các route chưa matching /api
-app.get('*', (req, res) => {
+/* app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
+}) */
 
 // 11. Khởi động server
 app.listen(PORT, () => {
