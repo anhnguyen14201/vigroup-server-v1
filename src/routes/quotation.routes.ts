@@ -5,8 +5,8 @@ import {
   getAllQuotations,
   getQuotationById,
   updateQuotation,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/index.js'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const quotationRouter = express.Router()
 

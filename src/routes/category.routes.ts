@@ -5,9 +5,9 @@ import {
   getProductCategories,
   getProductCategoryById,
   updateProductCategory,
-} from '~/controllers'
+} from '~/controllers/index.js'
 
-import { authenticate, authorizeRole } from '~/middlewares'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const productCategoryRouter = express.Router()
 

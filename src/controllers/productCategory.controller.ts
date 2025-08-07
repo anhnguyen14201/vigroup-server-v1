@@ -1,6 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import slugify from 'slugify'
-import { Product, ProductCategory } from '~/models'
+import slugifyModule from 'slugify'
+const slugify = slugifyModule.default || slugifyModule
+import { Product, ProductCategory } from '~/models/index.js'
 
 //* Tạo danh mục sản phẩm
 export const createProductCategory = expressAsyncHandler(

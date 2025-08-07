@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Page } from '~/models'
-import { deleteImages } from '~/utils'
+import { Page } from '~/models/index.js'
+import { deleteImages } from '~/utils/index.js'
 
 /**
  * Tạo Page mới

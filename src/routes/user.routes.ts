@@ -7,8 +7,8 @@ import {
   getUser,
   updateByUser,
   updateUser,
-} from '~/controllers/user.controller'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/index.js'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const userRouter = express.Router()
 

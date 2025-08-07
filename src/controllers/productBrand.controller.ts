@@ -1,6 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import slugify from 'slugify'
-import { Product, ProductBrand } from '~/models'
+import slugifyModule from 'slugify'
+const slugify = slugifyModule.default || slugifyModule
+import { Product, ProductBrand } from '~/models/index.js'
 
 // CREATE ProductBrand
 export const createProductBrand = expressAsyncHandler(

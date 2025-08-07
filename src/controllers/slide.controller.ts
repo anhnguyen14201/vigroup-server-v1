@@ -1,9 +1,9 @@
 import expressAsyncHandler from 'express-async-handler'
 
-import { Slide } from '~/models'
+import { Slide } from '~/models/index.js'
 import mongoose from 'mongoose'
-import { deleteImages } from '~/utils'
-import { IUser, OrderUpdate } from '~/interface'
+import { deleteImages } from '~/utils/index.js'
+import { IUser, OrderUpdate } from '~/interface/index.js'
 
 export const createSlide = expressAsyncHandler(async (req, res) => {
   //! Kiểm tra file upload và trường 'icon'

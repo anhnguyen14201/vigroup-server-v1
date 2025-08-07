@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
-import { IUser } from '~/interface'
-import { Order, Product, User } from '~/models'
+import { IUser } from '~/interface/index.js'
+import { Order, Product, User } from '~/models/index.js'
 
-import { sendEmail } from '~/utils'
+import { sendEmail } from '~/utils/index.js'
 
 interface CartItemPayload {
   productId: string

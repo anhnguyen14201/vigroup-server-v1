@@ -10,9 +10,9 @@ import {
   sendEmail,
   signInValidator,
   signUpValidator,
-} from '~/utils'
+} from '~/utils/index.js'
 import axios from 'axios'
-import { User } from '~/models'
+import { User } from '~/models/index.js'
 
 dotenv.config()
 

@@ -1,3 +1,3 @@
-export * from './cloudinary.config'
-export * from './db.connect'
-export * from './multer'
+export * from './cloudinary.config.js'
+export * from './db.connect.js'
+export * from './multer.js'

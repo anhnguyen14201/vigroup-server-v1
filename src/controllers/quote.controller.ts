@@ -1,5 +1,5 @@
 import expressAsyncHandler from 'express-async-handler'
-import { getSignedUrl, uploadPdfBuffer } from '~/configs'
+import { getSignedUrl, uploadPdfBuffer } from '~/configs/index.js'
 import {
   Infor,
   InforCompany,
@@ -9,9 +9,9 @@ import {
   Product,
   User,
   Warranty,
-} from '~/models'
-import { createInvoicePDF, createQuotePDF } from '~/services'
-import { deleteImages, deletePDF, generateQuoteCode } from '~/utils'
+} from '~/models/index.js'
+import { createInvoicePDF, createQuotePDF } from '~/services/index.js'
+import { deleteImages, deletePDF, generateQuoteCode } from '~/utils/index.js'
 
 //* Tạo báo giá
 export const postQuote = expressAsyncHandler(async (req: any, res: any) => {

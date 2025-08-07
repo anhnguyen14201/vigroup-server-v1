@@ -1,8 +1,14 @@
 import expressAsyncHandler from 'express-async-handler'
 import mongoose, { AnyObject } from 'mongoose'
-import slugify from 'slugify'
-import { Language, Product, ProductBrand, ProductCategory } from '~/models'
-import { deleteImages } from '~/utils'
+import slugifyModule from 'slugify'
+const slugify = slugifyModule.default || slugifyModule
+import {
+  Language,
+  Product,
+  ProductBrand,
+  ProductCategory,
+} from '~/models/index.js'
+import { deleteImages } from '~/utils/index.js'
 
 /*
  * Trợ giúp tạo slug duy nhất cho từng productName.

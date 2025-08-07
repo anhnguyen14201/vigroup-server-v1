@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { ProgressEntry, Project } from '~/models'
-import { deleteImages } from '~/utils'
+import { ProgressEntry, Project } from '~/models/index.js'
+import { deleteImages } from '~/utils/index.js'
 
 // Tạo
 export const createProgressEntry = expressAsyncHandler(async (req, res) => {

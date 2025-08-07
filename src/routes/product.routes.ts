@@ -1,5 +1,5 @@
 import express from 'express'
-import { uploadCloudForProductImages } from '~/configs'
+import { uploadCloudForProductImages } from '~/configs/index.js'
 import {
   createProduct,
   deleteProduct,
@@ -9,9 +9,9 @@ import {
   getProductsByIds,
   getRelatedBySlug,
   updateProduct,
-} from '~/controllers'
+} from '~/controllers/index.js'
 
-import { authenticate, authorizeRole } from '~/middlewares'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const productRouter = express.Router()
 

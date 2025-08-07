@@ -1,5 +1,5 @@
 import express from 'express'
-import { uploadCloudForProjectImages } from '~/configs'
+import { uploadCloudForProjectImages } from '~/configs/index.js'
 import {
   addCustomerUser,
   createDeposit,
@@ -16,8 +16,8 @@ import {
   removeCustomerUser,
   updateProject,
   updateProjectStatus,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/index.js'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const projectRouter = express.Router()
 

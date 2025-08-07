@@ -4,8 +4,8 @@ import {
   deleteProjectType,
   getProjectTypes,
   updateProjectType,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/index.js'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const projectTypeRouter = express.Router()
 

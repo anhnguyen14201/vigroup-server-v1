@@ -1,6 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import slugify from 'slugify'
-import { IUser } from '~/interface'
+import slugifyModule from 'slugify'
+const slugify = slugifyModule.default || slugifyModule
+import { IUser } from '~/interface/index.js'
 import {
   Attendance,
   ProgressEntry,
@@ -8,8 +9,8 @@ import {
   ProjectType,
   Quotation,
   User,
-} from '~/models'
-import { deleteImages } from '~/utils'
+} from '~/models/index.js'
+import { deleteImages } from '~/utils/index.js'
 
 //* Hàm sinh slug duy nhất cho projectName
 async function generateUniqueSlug(

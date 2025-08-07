@@ -8,7 +8,7 @@ import {
   resetPassword,
   signIn,
   signUp,
-} from '~/controllers'
+} from '~/controllers/index.js'
 
 const authRouter = express.Router()
 

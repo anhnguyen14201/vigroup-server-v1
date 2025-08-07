@@ -10,8 +10,8 @@ import {
   getOrderStatisticsByYear,
   updateOrderPdf,
   updateOrderStatus,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/index.js'
+import { authenticate, authorizeRole } from '~/middlewares/index.js'
 
 const orderRouter = express.Router()
 

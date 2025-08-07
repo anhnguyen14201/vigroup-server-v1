@@ -1,8 +1,8 @@
 // controllers/userController.js
 import expressAsyncHandler from 'express-async-handler'
 import bcryptjs from 'bcryptjs'
-import { IUser } from '~/interface'
-import { Cart, Product, User } from '~/models'
+import { IUser } from '~/interface/index.js'
+import { Cart, Product, User } from '~/models/index.js'
 
 //* Lấy thông tin người dùng hiện tại theo ID
 //* @desc    Get current user

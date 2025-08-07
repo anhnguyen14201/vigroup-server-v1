@@ -6,8 +6,8 @@ import {
   getAllPages,
   getPageByIdentifier,
   updatePage,
-} from '~/controllers'
-import { uploadCloudForPageImages } from '~/configs'
+} from '~/controllers/index.js'
+import { uploadCloudForPageImages } from '~/configs/index.js'
 
 const pagesRouter = express.Router()
 

@@ -1,2 +1,2 @@
-export * from './validators'
-export * from './auth.middleware'
+export * from './validators/index.js'
+export * from './auth.middleware.js'

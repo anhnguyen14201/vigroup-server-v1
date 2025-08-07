@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import crypto from 'crypto'
-import { IUser } from '~/interface'
+import { IUser } from '~/interface/index.js'
 
 const userSchema = new Schema<IUser>(
   {

@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
-import { Attendance, Project, User } from '~/models'
-import { calculateTotalHours } from '~/utils'
+import { Attendance, Project, User } from '~/models/index.js'
+import { calculateTotalHours } from '~/utils/index.js'
 
 // Utility to parse and validate month/year query params
 function parseMonthYear(query: any) {

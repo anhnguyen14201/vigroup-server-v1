@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import { ProjectType } from '~/models'
-import slugify from 'slugify'
-
+import { ProjectType } from '~/models/index.js'
+import slugifyModule from 'slugify'
+const slugify = slugifyModule.default || slugifyModule
 /*
  * Controller để quản lý các loại dự án (Project Types)
  * - Tạo mới, lấy danh sách, lấy theo ID, cập nhật và xóa loại dự án
