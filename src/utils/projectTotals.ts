@@ -1,6 +1,6 @@
 // utils/projectTotals.ts
 import mongoose from 'mongoose'
-import { Project, Quotation } from '~/models/index.js'
+import { Project, Quotation } from '~/models'
 
 export async function recalcProjectTotals(projectId: mongoose.Types.ObjectId) {
   const agg = await Quotation.aggregate([

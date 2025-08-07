@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { ILanguage } from '~/interface/language.interface.js'
+import { ILanguage } from '~/interface'
 
 const LanguageSchema = new Schema<ILanguage>(
   {

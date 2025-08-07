@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Installation } from '~/models/index.js'
-import { deleteImages } from '~/utils/helps.js'
+import { Installation } from '~/models'
+import { deleteImages } from '~/utils'
 
 //* Tạo thông tin lắp đặt
 export const createInstallation = expressAsyncHandler(

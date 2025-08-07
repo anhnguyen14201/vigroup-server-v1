@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema, Types } from 'mongoose'
-import { Project } from '~/models/index.js'
+import { Project } from '~/models'
 
 // 1. Định nghĩa interface cho document của Quotation
 export interface IQuotation extends Document {

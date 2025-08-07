@@ -1,13 +1,12 @@
 import { Router } from 'express'
-
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 import {
-  postQuote,
-  postInvoice,
-  getAllInvoices,
-  upsertQuote,
   deleteQuote,
-} from '~/controllers/quote.controller.js'
+  getAllInvoices,
+  postInvoice,
+  postQuote,
+  upsertQuote,
+} from '~/controllers'
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const quoteRouter = Router()
 

@@ -2,14 +2,17 @@ import expressAsyncHandler from 'express-async-handler'
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import { createHash } from 'crypto'
+import crypto, { createHash } from 'crypto'
 
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  sendEmail,
+  signInValidator,
+  signUpValidator,
+} from '~/utils'
 import axios from 'axios'
-import { User } from '~/models/index.js'
-import { signUpValidator } from '~/utils/validators/signUp.validator.js'
-import { signInValidator } from '~/utils/validators/signIn.validator.js'
-import { generateAccessToken, generateRefreshToken } from '~/utils/jwt.js'
-import { sendEmail } from '~/utils/sendMailer.js'
+import { User } from '~/models'
 
 dotenv.config()
 

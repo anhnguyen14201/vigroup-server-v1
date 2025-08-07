@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary'
-import { Counter } from '~/models/counter.model.js'
+import { Counter } from '~/models/counter.model'
 
 export const deleteImages = async (
   imagePaths: (string | null | undefined)[],

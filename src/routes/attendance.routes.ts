@@ -8,9 +8,8 @@ import {
   monthlySummary,
   updateAttendance,
   updateAttendanceByDate,
-} from '~/controllers/attendance.controller.js'
-
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
+} from '~/controllers'
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const attendanceRouter = express.Router()
 

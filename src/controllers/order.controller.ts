@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import expressAsyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
-import { IUser } from '~/interface/user.interface.js'
-import { Order, Product, User } from '~/models/index.js'
-import { sendEmail } from '~/utils/sendMailer.js'
+import { IUser } from '~/interface'
+import { Order, Product, User } from '~/models'
+
+import { sendEmail } from '~/utils'
 
 interface CartItemPayload {
   productId: string
@@ -131,9 +132,7 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
 
   const productRows = cartItems
     .map(item => {
-      const prod = productsInDb.find(
-        (p: any) => p._id.toString() === item.productId,
-      )
+      const prod = productsInDb.find(p => p._id.toString() === item.productId)
       if (!prod) return ''
       // English translation
       const enTrans = (prod.translations || []).find(
@@ -687,7 +686,7 @@ export const updateOrderStatus = expressAsyncHandler(
     if (status === 'Cancelled') {
       // hoàn trả tồn kho
       await Promise.all(
-        order.cartItems.map(async (item: any) => {
+        order.cartItems.map(async item => {
           const prod = item.productId as any
           const product = await Product.findById(prod._id)
           if (product) {
@@ -729,7 +728,7 @@ export const updateOrderStatus = expressAsyncHandler(
 
       // Build productRowsHtml và các số liệu
       const productRowsHtml = order.cartItems
-        .map((item: any) => {
+        .map(item => {
           const prod = item.productId as any
 
           const enTrans = (prod.translations || []).find(

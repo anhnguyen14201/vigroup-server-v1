@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { InforCompany } from '~/models/index.js'
-import { deleteImages } from '~/utils/helps.js'
+import { InforCompany } from '~/models' // điều chỉnh đường dẫn import đúng
+import { deleteImages } from '~/utils'
 
 //* Tạo thông tin công ty
 

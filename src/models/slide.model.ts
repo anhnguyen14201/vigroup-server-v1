@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { ISlide } from '~/interface/slide.interface.js'
+import { ISlide } from '~/interface'
 
 const SlideSchema = new Schema<ISlide>(
   {

@@ -1,8 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Product, ProductCategory } from '~/models/index.js'
-// import slugify from 'slugify'
-import slugifyModule from 'slugify'
-const slugify = slugifyModule.default || slugifyModule
+import slugify from 'slugify'
+import { Product, ProductCategory } from '~/models'
+
 //* Tạo danh mục sản phẩm
 export const createProductCategory = expressAsyncHandler(
   async (req: any, res: any) => {
@@ -59,12 +58,12 @@ export const getProductCategories = expressAsyncHandler(async (req, res) => {
     { $group: { _id: '$categoryIds', count: { $sum: 1 } } },
   ])
   const map: Record<string, number> = {}
-  catCounts.forEach((c: any) => (map[c._id.toString()] = c.count))
+  catCounts.forEach(c => (map[c._id.toString()] = c.count))
 
   const productCategories = await ProductCategory.find().populate(
     'translations.language',
   )
-  const data = productCategories.map((cat: any) => ({
+  const data = productCategories.map(cat => ({
     ...cat.toObject(),
     productCount: map[cat._id.toString()] || 0,
   }))

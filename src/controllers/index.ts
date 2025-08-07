@@ -1,4 +1,4 @@
-/* export * from './language.controller'
+export * from './language.controller'
 export * from './auth.controller'
 export * from './slide.controller'
 export * from './logo.controler'
@@ -17,4 +17,3 @@ export * from './quote.controller'
 export * from './installation.controller'
 export * from './page.controller'
 export * from './order.controller'
- */

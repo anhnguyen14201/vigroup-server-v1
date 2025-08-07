@@ -1,6 +1,7 @@
 // src/controllers/quotation.controller.ts
 import expressAsyncHandler from 'express-async-handler'
-import { Quotation, Project } from '~/models/index.js'
+import { Project, Quotation } from '~/models'
+
 /**
  * POST /api/quotations
  * Create a new quotation

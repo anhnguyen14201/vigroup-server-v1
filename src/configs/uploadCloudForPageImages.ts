@@ -1,2 +1,2 @@
-import { upload } from './multer.js'
+import { upload } from './multer'
 export const uploadCloudForPageImages = upload

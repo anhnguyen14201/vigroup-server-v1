@@ -1,16 +1,15 @@
 import expressAsyncHandler from 'express-async-handler'
-import { IUser } from '~/interface/user.interface.js'
+import slugify from 'slugify'
+import { IUser } from '~/interface'
 import {
+  Attendance,
+  ProgressEntry,
   Project,
   ProjectType,
-  Attendance,
   Quotation,
-  ProgressEntry,
   User,
-} from '~/models/index.js'
-import { deleteImages } from '~/utils/helps.js'
-import slugifyModule from 'slugify'
-const slugify = slugifyModule.default || slugifyModule
+} from '~/models'
+import { deleteImages } from '~/utils'
 
 //* Hàm sinh slug duy nhất cho projectName
 async function generateUniqueSlug(
@@ -286,7 +285,7 @@ export const getAllProjects = expressAsyncHandler(async (req, res) => {
   const counts = await Project.countDocuments(finalFilter)
   // 9. Tính lại & lưu xuống DB
   await Promise.all(
-    projects.map(async (project: any) => {
+    projects.map(async project => {
       // Tính toán lại
       const deposit = project.depositAmount || 0
       const paymentsSum = (project.paymentAmounts || []).reduce(
@@ -329,7 +328,7 @@ export const getAllProjects = expressAsyncHandler(async (req, res) => {
     }),
   )
 
-  const responseData = projects.map((project: any, participantCount: any) => {
+  const responseData = projects.map((project, participantCount) => {
     const obj = project.toObject()
     if (!isAdmin) {
       delete obj.paymentStatus
@@ -434,14 +433,14 @@ export const getAllProjectsForEmployee = expressAsyncHandler(
 
     // 12. Cập nhật lại paymentStatus … tương tự như trước
     await Promise.all(
-      projects.map(async (project: any) => {
+      projects.map(async project => {
         // … (đoạn tính toán paymentStatus giống cũ)
         return project.save()
       }),
     )
 
     // 13. Chuẩn bị response
-    const responseData = projects.map((p: any) => {
+    const responseData = projects.map(p => {
       const o = p.toObject()
       if (!isAdmin) {
         delete o.paymentStatus
@@ -918,7 +917,7 @@ export const deleteProject = expressAsyncHandler(async (req: any, res: any) => {
     })
 
     // 6.2. Gom tất cả imageUrls từ mỗi ProgressEntry vào một mảng duy nhất
-    const allProgressImageUrls: string[] = progressEntries.flatMap((pe: any) =>
+    const allProgressImageUrls: string[] = progressEntries.flatMap(pe =>
       Array.isArray(pe.imageUrls) ? pe.imageUrls : [],
     )
 
@@ -1064,9 +1063,7 @@ export const addCustomerUser = expressAsyncHandler(async (req, res) => {
   }
 
   // 3. Kiểm tra xem user đã có trong customerUser chưa
-  const exists = projectDoc.customerUser.some(
-    (id: any) => id.toString() === userId,
-  )
+  const exists = projectDoc.customerUser.some(id => id.toString() === userId)
   if (exists) {
     res.status(200).json({
       success: false,
@@ -1130,9 +1127,7 @@ export const removeCustomerUser = expressAsyncHandler(async (req, res) => {
   }
 
   // 2. Kiểm tra xem userId có tồn tại trong customerUser không
-  const exists = project.customerUser
-    .map((id: any) => id.toString())
-    .includes(userId)
+  const exists = project.customerUser.map(id => id.toString()).includes(userId)
   if (!exists) {
     res.status(200).json({
       success: false,

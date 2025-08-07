@@ -1,13 +1,12 @@
 import express from 'express'
-
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 import {
   createQuotation,
   deleteQuotation,
   getAllQuotations,
   getQuotationById,
   updateQuotation,
-} from '~/controllers/quotation.controller.js'
+} from '~/controllers'
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const quotationRouter = express.Router()
 

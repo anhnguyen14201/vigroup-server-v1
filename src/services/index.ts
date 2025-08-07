@@ -1,2 +1,2 @@
-export * from './pdfQuote.service.js'
-export * from './pdfInvoice.service.js'
+export * from './pdfQuote.service'
+export * from './pdfInvoice.service'

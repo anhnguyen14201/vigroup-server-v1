@@ -1,14 +1,9 @@
 import expressAsyncHandler from 'express-async-handler'
 import mongoose, { AnyObject } from 'mongoose'
-import slugifyModule from 'slugify'
-const slugify = slugifyModule.default || slugifyModule
-import {
-  Product,
-  ProductCategory,
-  ProductBrand,
-  Language,
-} from '~/models/index.js'
-import { deleteImages } from '~/utils/helps.js'
+import slugify from 'slugify'
+import { Language, Product, ProductBrand, ProductCategory } from '~/models'
+import { deleteImages } from '~/utils'
+
 /*
  * Trợ giúp tạo slug duy nhất cho từng productName.
  * Nếu có sản phẩm nào khác (ngoại trừ sản phẩm có ID excludeProductId nếu cập nhật)
@@ -870,7 +865,7 @@ export const getProductBySlug = expressAsyncHandler(
     // Chọn bản dịch theo Accept-Language header (ví dụ: 'vi', 'en', 'cs')
     const acceptLang = req.headers['accept-language']?.split(',')[0] || ''
     let translation = product.translations.find(
-      (t: any) => (t.language as any).code === acceptLang,
+      t => (t.language as any).code === acceptLang,
     )
     if (!translation) {
       translation = product.translations[0]

@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import mongoose from 'mongoose'
-import { Attendance, Project, User } from '~/models/index.js'
-import { calculateTotalHours } from '~/utils/helps.js'
+import { Attendance, Project, User } from '~/models'
+import { calculateTotalHours } from '~/utils'
 
 // Utility to parse and validate month/year query params
 function parseMonthYear(query: any) {
@@ -140,10 +140,10 @@ export const getMonthlySummary = expressAsyncHandler(async (req, res) => {
   let totalSalary = 0
   const workedDates = new Set<string>()
 
-  records.forEach((r: any) => {
+  records.forEach(r => {
     totalHours += r.totalHours || 0
     totalSalary += r.salary || 0
-    if (r.shifts.some((s: any) => s.checkIn && s.checkOut)) {
+    if (r.shifts.some(s => s.checkIn && s.checkOut)) {
       workedDates.add(r.date.toISOString().slice(0, 10))
     }
   })
@@ -217,7 +217,7 @@ export const monthlySummary = expressAsyncHandler(
 
     // 6. Group attendances theo employeeId
     const byEmp = new Map<string, typeof attendances>()
-    attendances.forEach((a: any) => {
+    attendances.forEach(a => {
       const key = a.employeeId.toString()
       if (!byEmp.has(key)) byEmp.set(key, [])
       byEmp.get(key)!.push(a)
@@ -226,17 +226,17 @@ export const monthlySummary = expressAsyncHandler(
     // 7. Gom projectIds & query 1 lần
     const allProjectIds = new Set<string>()
     byEmp.forEach(records =>
-      records.forEach((r: any) =>
-        r.shifts.forEach((s: any) => allProjectIds.add(s.projectId.toString())),
+      records.forEach(r =>
+        r.shifts.forEach(s => allProjectIds.add(s.projectId.toString())),
       ),
     )
     const projects = await Project.find({
       _id: { $in: Array.from(allProjectIds) },
     }).lean()
-    const projectMap = new Map(projects.map((p: any) => [p._id.toString(), p]))
+    const projectMap = new Map(projects.map(p => [p._id.toString(), p]))
 
     // 8. Tính summary cho mỗi employee
-    const data = employees.map((emp: any) => {
+    const data = employees.map(emp => {
       const empId = emp._id.toString()
       const records = byEmp.get(empId) || []
 
@@ -245,13 +245,13 @@ export const monthlySummary = expressAsyncHandler(
       const days = new Set<string>()
       const projSet = new Set<string>()
 
-      records.forEach((a: any) => {
+      records.forEach(a => {
         totalHours += a.totalHours || 0
         totalSalary += a.salary || 0
-        if (a.shifts.some((s: any) => s.checkIn && s.checkOut)) {
+        if (a.shifts.some(s => s.checkIn && s.checkOut)) {
           days.add(a.date.toISOString().slice(0, 10))
         }
-        a.shifts.forEach((s: any) => projSet.add(s.projectId.toString()))
+        a.shifts.forEach(s => projSet.add(s.projectId.toString()))
       })
 
       const totalWorkedDays = days.size

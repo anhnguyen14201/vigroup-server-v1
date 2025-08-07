@@ -1,11 +1,6 @@
 import express from 'express'
-import {
-  createInfor,
-  deleteInfor,
-  getInfor,
-  updateInfor,
-} from '~/controllers/infor.controller.js'
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
+import { createInfor, deleteInfor, getInfor, updateInfor } from '~/controllers'
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const inforRouter = express.Router()
 

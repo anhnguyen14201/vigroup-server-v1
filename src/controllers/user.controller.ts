@@ -1,8 +1,8 @@
 // controllers/userController.js
 import expressAsyncHandler from 'express-async-handler'
 import bcryptjs from 'bcryptjs'
-import { Cart, Product, User } from '~/models/index.js'
-import { IUser } from '~/interface/user.interface.js'
+import { IUser } from '~/interface'
+import { Cart, Product, User } from '~/models'
 
 //* Lấy thông tin người dùng hiện tại theo ID
 //* @desc    Get current user
@@ -38,8 +38,8 @@ export const getUser = expressAsyncHandler(async (req, res) => {
     1311417518: 'Manager',
     5131612152555: 'Employee',
     32119201513518: 'Customer',
-  } as any
-  const userRole = (roleMapping[data.role] as any) || 'Unknown'
+  }
+  const userRole = roleMapping[data.role] || 'Unknown'
 
   res.status(200).json({
     success: true,

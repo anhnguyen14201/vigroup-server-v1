@@ -1,12 +1,7 @@
 import express from 'express'
-import { uploadCloudForIcons } from '~/configs/cloudinary.config.js'
-import {
-  createLogo,
-  deleteLogo,
-  getLogo,
-  updateLogo,
-} from '~/controllers/logo.controler.js'
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
+import { uploadCloudForIcons } from '~/configs'
+import { createLogo, deleteLogo, getLogo, updateLogo } from '~/controllers'
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const logoRouter = express.Router()
 

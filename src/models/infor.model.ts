@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { IInfor } from '~/interface/infor.interface.js'
+import { IInfor } from '~/interface'
 
 const InforSchema = new Schema<IInfor>(
   {

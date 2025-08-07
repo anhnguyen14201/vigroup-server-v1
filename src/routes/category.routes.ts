@@ -1,9 +1,13 @@
 import express from 'express'
-import { createProductCategory, deleteProductCategory, getProductCategories, getProductCategoryById, updateProductCategory } from '~/controllers/productCategory.controller.js'
-import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
+import {
+  createProductCategory,
+  deleteProductCategory,
+  getProductCategories,
+  getProductCategoryById,
+  updateProductCategory,
+} from '~/controllers'
 
-
-
+import { authenticate, authorizeRole } from '~/middlewares'
 
 const productCategoryRouter = express.Router()
 
