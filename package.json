@@ -2,9 +2,9 @@
   "name": "vigroup-server",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon --experimental-specifier-resolution=node ./src/index.ts",
+    "dev": "nodemon --experimental-specifier-resolution=node ./src/index.js",
     "build": "rimraf dist && tsc && tsc-alias",
     "start": "node dist/src/index.js",
     "lint": "eslint .",
