@@ -1,5 +1,5 @@
 import { Document } from 'mongoose'
-import { ILanguage } from '~/interface/language.interface'
+import { ILanguage } from '~/interface/language.interface.js'
 
 export interface ISlideTranslation extends Document {
   language: ILanguage // Tham chiếu đến model Language

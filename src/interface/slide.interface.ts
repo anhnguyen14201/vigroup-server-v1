@@ -1,5 +1,5 @@
 import { Document } from 'mongoose'
-import { ISlideTranslation } from '~/interface/slideTranslation.interface'
+import { ISlideTranslation } from '~/interface/slideTranslation.interface.js'
 
 export interface ISlide extends Document {
   imageUrls: string[] // Mảng URL của hình ảnh cho slide
