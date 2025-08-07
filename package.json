@@ -1,11 +1,11 @@
 {
   "name": "vigroup-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "npx nodemon",
+    "dev": "npx nodemon --experimental-specifier-resolution=node .src/index.js",
     "build": "rimraf ./dist && tsc && tsc-alias",
-    "start": "node dist/index.js",
+    "start": "node --experimental-specifier-resolution=node .src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
