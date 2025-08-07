@@ -1,14 +1,15 @@
 import express from 'express'
+
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 import {
-  deleteUser,
-  getCustomerById,
-  getCustomers,
-  getNonCustomers,
   getUser,
-  updateByUser,
+  getCustomers,
+  getCustomerById,
+  getNonCustomers,
   updateUser,
-} from '~/controllers/user.controller'
-import { authenticate, authorizeRole } from '~/middlewares'
+  updateByUser,
+  deleteUser,
+} from '~/controllers/user.controller.js'
 
 const userRouter = express.Router()
 

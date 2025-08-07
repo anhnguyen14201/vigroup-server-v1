@@ -1,23 +1,24 @@
 import express from 'express'
-import { uploadCloudForProjectImages } from '~/configs'
+import { uploadCloudForProjectImages } from '~/configs/cloudinary.config.js'
 import {
-  addCustomerUser,
-  createDeposit,
-  createPayment,
   createProject,
-  deleteDeposit,
-  deletePaymentAtIndex,
   deleteProject,
   getAllProjects,
   getAllProjectsForEmployee,
   getProjectById,
   getProjectBySlug,
   getProjectsByUser,
-  removeCustomerUser,
   updateProject,
   updateProjectStatus,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+  addCustomerUser,
+  removeCustomerUser,
+  createDeposit,
+  deleteDeposit,
+  createPayment,
+  deletePaymentAtIndex,
+} from '~/controllers/project.controller.js'
+
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const projectRouter = express.Router()
 

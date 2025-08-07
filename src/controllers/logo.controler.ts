@@ -1,7 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import { IUser } from '~/interface'
-import { Logo } from '~/models'
-import { deleteImages } from '~/utils'
+import { IUser } from '~/interface/user.interface.js'
+import { Logo } from '~/models/index.js'
+import { deleteImages } from '~/utils/helps.js'
 
 //* Tạo logo
 export const createLogo = expressAsyncHandler(async (req, res) => {

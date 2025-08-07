@@ -1,13 +1,14 @@
 import express from 'express'
-import { uploadCloudForImageSliders } from '~/configs'
+
+import { uploadCloudForImageSliders } from '~/configs/cloudinary.config.js'
 import {
   createSlide,
   deleteSlide,
   getSlides,
   updateSlide,
   updateSlideOrder,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/slide.controller.js'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const slideRouter = express.Router()
 

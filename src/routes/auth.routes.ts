@@ -1,14 +1,6 @@
 import express from 'express'
-import {
-  authStatus,
-  faceookLogin,
-  forgotPassword,
-  logOut,
-  refreshAccessToken,
-  resetPassword,
-  signIn,
-  signUp,
-} from '~/controllers'
+import { authStatus, faceookLogin, forgotPassword, logOut, refreshAccessToken, resetPassword, signIn, signUp } from '~/controllers/auth.controller.js'
+
 
 const authRouter = express.Router()
 

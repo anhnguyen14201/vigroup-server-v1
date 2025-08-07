@@ -1,17 +1,18 @@
 import expressAsyncHandler from 'express-async-handler'
-import { getSignedUrl, uploadPdfBuffer } from '~/configs'
+import { getSignedUrl, uploadPdfBuffer } from '~/configs/cloudinary.config.js'
 import {
-  Infor,
+  Invoice,
   InforCompany,
   Installation,
-  Invoice,
-  Language,
   Product,
   User,
   Warranty,
-} from '~/models'
-import { createInvoicePDF, createQuotePDF } from '~/services'
-import { deleteImages, deletePDF, generateQuoteCode } from '~/utils'
+  Infor,
+} from '~/models/index.js'
+import { createInvoicePDF } from '~/services/pdfInvoice.service.js'
+import { createQuotePDF } from '~/services/pdfQuote.service.js'
+
+import { deleteImages, deletePDF, generateQuoteCode } from '~/utils/helps.js'
 
 //* Tạo báo giá
 export const postQuote = expressAsyncHandler(async (req: any, res: any) => {
@@ -50,7 +51,7 @@ export const postQuote = expressAsyncHandler(async (req: any, res: any) => {
 
   // 3. Map infor, address, phones
   const infor = inforPayload.map((item: any) => {
-    const doc = inforDocs.find(d => d._id.toString() === item._id)
+    const doc = inforDocs.find((d: any) => d._id.toString() === item._id)
     return { ...doc }
   })
   const addressItem = infor.find((i: any) => i.inforType === 'address')
@@ -62,7 +63,9 @@ export const postQuote = expressAsyncHandler(async (req: any, res: any) => {
 
   // 4. Map installations
   const installations = instPayload.map((item: any) => {
-    const doc = installationDocs.find(d => d._id.toString() === item.install)
+    const doc = installationDocs.find(
+      (d: any) => d._id.toString() === item.install,
+    )
     const unitNet = doc ? Number(doc.cost) || 0 : 0
     const unitGross = doc
       ? +(unitNet / (1 + (doc.tax ?? 0) / 100)).toFixed(2)
@@ -82,7 +85,7 @@ export const postQuote = expressAsyncHandler(async (req: any, res: any) => {
 
   // 5. Map products
   const products = prodPayload.map((item: any) => {
-    const doc = productDocs.find(d => d._id.toString() === item.product)
+    const doc = productDocs.find((d: any) => d._id.toString() === item.product)
     const unitNet = doc ? (doc.discount ?? doc.price ?? 0) : 0
     const unitGross = doc
       ? +(unitNet / (1 + (doc.tax ?? 0) / 100)).toFixed(2)
@@ -279,13 +282,15 @@ export const postInvoice = expressAsyncHandler(async (req: any, res: any) => {
 
   // 3. Map infor, lấy address, phones
   const infor = inforPayload.map((item: any) => {
-    const doc = inforDocs.find(d => d._id.toString() === item._id)
+    const doc = inforDocs.find((d: any) => d._id.toString() === item._id)
     return { ...doc }
   })
 
   // 4. Map installations
   const installations = instPayload.map((item: any) => {
-    const doc = installationDocs.find(d => d._id.toString() === item.install)
+    const doc = installationDocs.find(
+      (d: any) => d._id.toString() === item.install,
+    )
     const unitNet = doc ? Number(doc.cost) || 0 : 0
     const unitGross = doc
       ? +(unitNet / (1 + (doc.tax ?? 0) / 100)).toFixed(2)
@@ -305,7 +310,7 @@ export const postInvoice = expressAsyncHandler(async (req: any, res: any) => {
 
   // 5. Map products
   const products = prodPayload.map((item: any) => {
-    const doc = productDocs.find(d => d._id.toString() === item.product)
+    const doc = productDocs.find((d: any) => d._id.toString() === item.product)
     const unitNet = doc ? (doc.discount ?? doc.price ?? 0) : 0
     const unitGross = doc
       ? +(unitNet / (1 + (doc.tax ?? 0) / 100)).toFixed(2)
@@ -689,7 +694,7 @@ export const getAllInvoices = expressAsyncHandler(
     ])
 
     // Map sang plain objects, include virtuals và override status
-    const invoicesData = invoices.map(inv => {
+    const invoicesData = invoices.map((inv: any) => {
       // toObject({ virtuals: true }) để lấy currentStatus
       const obj = inv.toObject({ virtuals: true })
       if (

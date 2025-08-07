@@ -1,5 +1,5 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Language } from '~/models'
+import { Language } from '~/models/index.js'
 
 //* Tạo ngôn ngữ
 export const createLanguage = expressAsyncHandler(async (req, res) => {

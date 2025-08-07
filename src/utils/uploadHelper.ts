@@ -1,5 +1,5 @@
 // utils/uploadHelper.ts
-import { cloud } from '~/configs/cloudinary.config'
+import { cloud } from '~/configs/cloudinary.config.js'
 import { Readable } from 'stream'
 
 export function uploadStream(

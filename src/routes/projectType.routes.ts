@@ -1,11 +1,11 @@
 import express from 'express'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 import {
   createProjectType,
   deleteProjectType,
   getProjectTypes,
   updateProjectType,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/projectType.controller.js'
 
 const projectTypeRouter = express.Router()
 

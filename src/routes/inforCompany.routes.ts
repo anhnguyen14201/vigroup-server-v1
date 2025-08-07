@@ -1,12 +1,12 @@
 import express from 'express'
-import { uploadCloudForIcons } from '~/configs'
+import { uploadCloudForIcons } from '~/configs/cloudinary.config.js'
 import {
   createInforCompany,
   deleteInforCompany,
   getInforCompany,
   updateInforCompany,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/inforCompanny.controller.js'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const inforCompanyRouter = express.Router()
 

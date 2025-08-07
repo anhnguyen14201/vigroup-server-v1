@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { IUser } from '~/interface'
-import { Infor } from '~/models'
+import { IUser } from '~/interface/user.interface.js'
+import { Infor } from '~/models/index.js'
 
 //* Tạo mới
 export const createInfor = expressAsyncHandler(async (req, res) => {

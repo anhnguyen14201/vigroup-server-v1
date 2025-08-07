@@ -1,4 +1,4 @@
-export * from './language.interface'
+/* export * from './language.interface'
 export * from './slide.interface'
 export * from './slideTranslation.interface'
 export * from './user.interface'
@@ -6,3 +6,4 @@ export * from './logo.interface'
 export * from './infor.interface'
 export * from './attendance.interface'
 export * from './project.interface'
+ */

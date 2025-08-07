@@ -1,6 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
-import slugify from 'slugify'
-import { Product, ProductBrand } from '~/models'
+import slugifyModule from 'slugify'
+import { Product, ProductBrand } from '~/models/index.js'
+const slugify = slugifyModule.default || slugifyModule
 
 // CREATE ProductBrand
 export const createProductBrand = expressAsyncHandler(
@@ -96,9 +97,9 @@ export const getProductBrands = expressAsyncHandler(
       { $group: { _id: '$brandIds', count: { $sum: 1 } } },
     ])
     const map: Record<string, number> = {}
-    catCounts.forEach(c => (map[c._id.toString()] = c.count))
+    catCounts.forEach((c: any) => (map[c._id.toString()] = c.count))
     const brands = await ProductBrand.find().populate('translations.language')
-    const data = brands.map(cat => ({
+    const data = brands.map((cat: any) => ({
       ...cat.toObject(),
       brandCount: map[cat._id.toString()] || 0,
     }))

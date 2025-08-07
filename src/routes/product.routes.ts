@@ -1,17 +1,16 @@
 import express from 'express'
-import { uploadCloudForProductImages } from '~/configs'
+import { uploadCloudForProductImages } from '~/configs/cloudinary.config.js'
 import {
   createProduct,
   deleteProduct,
-  getAllPrivateProducts,
   getAllProducts,
+  getAllPrivateProducts,
   getProductBySlug,
   getProductsByIds,
   getRelatedBySlug,
   updateProduct,
-} from '~/controllers'
-
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/product.controller.js'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const productRouter = express.Router()
 

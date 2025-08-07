@@ -1,2 +1,2 @@
-export * from './signUp.validator'
-export * from './signIn.validator'
+export * from './signUp.validator.js'
+export * from './signIn.validator.js'

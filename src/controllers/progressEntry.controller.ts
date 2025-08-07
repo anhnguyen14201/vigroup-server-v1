@@ -1,7 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { ProgressEntry, Project } from '~/models'
-import { deleteImages } from '~/utils'
-
+import { ProgressEntry, Project } from '~/models/index.js'
+import { deleteImages } from '~/utils/helps.js'
 // Tạo
 export const createProgressEntry = expressAsyncHandler(async (req, res) => {
   const files = (req.files as { [fieldname: string]: Express.Multer.File[] })

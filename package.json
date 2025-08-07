@@ -1,11 +1,12 @@
 {
   "name": "vigroup-server",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "type": "module",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "npx nodemon --experimental-specifier-resolution=node .src/index.js",
-    "build": "rimraf ./dist && tsc && tsc-alias",
-    "start": "node --experimental-specifier-resolution=node .src/index.js",
+    "dev": "nodemon --experimental-specifier-resolution=node ./src/index.ts",
+    "build": "rimraf dist && tsc && tsc-alias",
+    "start": "node dist/src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
@@ -29,9 +30,10 @@
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.27.0"
   },
   "dependencies": {

@@ -1,7 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Page } from '~/models'
-import { deleteImages } from '~/utils'
-
+import { Page } from '~/models/index.js'
+import { deleteImages } from '~/utils/helps.js'
 /**
  * Tạo Page mới
  * - Nếu gửi isActive: true, tất cả page khác sẽ bị set isActive = false

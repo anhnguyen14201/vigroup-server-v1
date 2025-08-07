@@ -1,7 +1,9 @@
 import express from 'express'
-import { uploadCloudForIcons } from '~/configs'
-import { createLanguage, getLanguages } from '~/controllers'
-import { validateLanguage } from '~/middlewares'
+import { uploadCloudForIcons } from '~/configs/cloudinary.config.js'
+import {
+  createLanguage,
+  getLanguages,
+} from '~/controllers/language.controller.js'
 
 const languageRouter = express.Router()
 

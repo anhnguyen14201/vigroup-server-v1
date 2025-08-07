@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import path from 'path'
-import { connectDB } from '~/configs'
-import { router } from '~/routes'
+import { connectDB } from '~/configs/db.connect.js'
+import router from '~/routes/router.js'
 // 1. Nạp biến môi trường từ .env
 dotenv.config()
 

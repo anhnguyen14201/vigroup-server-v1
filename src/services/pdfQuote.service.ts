@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import puppeteer from 'puppeteer'
-import { formatPhoneCZ } from '~/utils'
+import { formatPhoneCZ } from '~/utils/formatPhone.js'
 
 interface Supplier {
   companyName: string

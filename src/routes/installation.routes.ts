@@ -1,13 +1,7 @@
 import express from 'express'
-import { uploadCloudForIcons } from '~/configs'
-import {
-  createInstallation,
-  deleteInstallation,
-  deleteLogo,
-  getInstallation,
-  updateInstallation,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+import { uploadCloudForIcons } from '~/configs/cloudinary.config.js'
+import { createInstallation, deleteInstallation, getInstallation, updateInstallation } from '~/controllers/installation.controller.js'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const installationRouter = express.Router()
 

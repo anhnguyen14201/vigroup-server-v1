@@ -5,9 +5,9 @@ import {
   getProductBrandById,
   getProductBrands,
   updateProductBrand,
-} from '~/controllers'
+} from '~/controllers/productBrand.controller.js'
 
-import { authenticate, authorizeRole } from '~/middlewares'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const productBrandRouter = express.Router()
 

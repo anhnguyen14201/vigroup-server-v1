@@ -1,13 +1,13 @@
 import express from 'express'
-import { uploadCloudForImageSliders } from '~/configs'
+import { uploadCloudForImageSliders } from '~/configs/cloudinary.config.js'
 import {
   createProgressEntry,
   deleteProgressEntry,
-  getProgressEntriesByProject,
   getProgressEntry,
+  getProgressEntriesByProject,
   updateProgressEntry,
-} from '~/controllers'
-import { authenticate, authorizeRole } from '~/middlewares'
+} from '~/controllers/progressEntry.controller.js'
+import { authenticate, authorizeRole } from '~/middlewares/auth.middleware.js'
 
 const routerProgress = express.Router()
 
