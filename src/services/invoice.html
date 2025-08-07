@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bảng báo giá Vigroup</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        color: #333;
+        padding-bottom: 100px;
+      }
+
+      .summary-block {
+        /* Không để khối này bị ngắt trang */
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+      .container {
+        width: 100%;
+        margin: 0 auto;
+        background: #fff;
+      }
+      .header {
+        display: flex;
+        align-items: center; /* Canh giữa theo chiều dọc */
+        justify-content: space-between;
+        border-bottom: 2px solid #ddd; /* Nét đậm hơn một chút */
+        padding: 16px 0; /* Padding trên/dưới đều */
+      }
+
+      .logo img {
+        height: 50px; /* Logo to hơn để nổi bật */
+        object-fit: contain;
+      }
+
+      .title {
+        text-align: right; /* Căn phải toàn bộ title */
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 24px; /* Lớn hơn để nhấn mạnh */
+        font-weight: 700;
+        color: #333;
+      }
+
+      .title h1 span {
+        font-weight: 400; /* “Faktura” nhẹ hơn */
+        color: #555;
+        margin-right: 8px;
+      }
+
+      .title h2 {
+        margin: 4px 0 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #777;
+        letter-spacing: 1px; /* Khoảng cách chữ để đọc dễ hơn */
+      }
+
+      .header {
+        display: flex;
+        align-items: center; /* Canh giữa theo chiều dọc */
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd; /* Nét đậm hơn một chút */
+        padding: 16px 0; /* Padding trên/dưới đều */
+      }
+
+      .logo img {
+        height: 50px; /* Logo to hơn để nổi bật */
+        object-fit: contain;
+      }
+
+      .title {
+        text-align: right; /* Căn phải toàn bộ title */
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 24px; /* Lớn hơn để nhấn mạnh */
+        font-weight: 700;
+        color: #333;
+      }
+
+      .title h1 span {
+        font-weight: 400; /* “Faktura” nhẹ hơn */
+        color: #555;
+        margin-right: 8px;
+      }
+
+      .title h2 {
+        margin: 4px 0 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #777;
+        letter-spacing: 1px; /* Khoảng cách chữ để đọc dễ hơn */
+      }
+
+      .title p {
+        margin: 4px 0 0;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #666;
+      }
+      .info {
+        display: flex;
+        justify-content: space-between;
+        gap: 32px;
+        margin: 20px 0;
+      }
+
+      .info .block {
+        flex: 1;
+        min-width: 0; /* cho phép nội dung co lại */
+      }
+
+      .info .block:last-child {
+        max-width: 45%; /* giới hạn chiều rộng cột phải */
+      }
+
+      /* Tiêu đề nhỏ mỗi block */
+      .info h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        color: #444;
+        border-bottom: 1px solid #dd2e44;
+        padding-bottom: 2px;
+        display: inline-block;
+      }
+
+      /* Dòng đầu mỗi block (tên công ty / tên khách hàng) */
+      .info .block > p:first-of-type {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        color: #222;
+      }
+      .spaced {
+        margin: 20px 0; /* 12px trên và dưới */
+      }
+      /* Tất cả các <p> trong block thành flex để label + value căn hai đầu */
+      .info .block > p {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
+        font-size: 13px;
+        color: #444;
+        line-height: 1.4;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      /* Giá trị trong <strong> vẫn đậm và để màu tối hơn */
+      .info .block > p strong {
+        font-weight: 600;
+        color: #222;
+      }
+
+      span {
+        color: #111;
+      }
+
+      /* Link nếu có */
+      .info .block .link {
+        color: #0066cc;
+        text-decoration: none;
+      }
+
+      .info .block .link:hover {
+        text-decoration: underline;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 12px;
+        table-layout: fixed; /* ép các width hoạt động */
+      }
+
+      thead th,
+      tbody td {
+        padding: 8px;
+        border: 1px solid #eee;
+        vertical-align: middle;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      /* Header nền sáng */
+      thead {
+        background: #f5f5f5;
+      }
+      thead th {
+        border: 1px solid #ddd;
+        color: #555;
+        text-align: left;
+      }
+
+      /* Đặt lại độ rộng từng cột */
+      thead th:nth-child(1), /* Kód */
+      tbody td:nth-child(1) {
+        width: 15%;
+        max-width: 15%;
+      }
+
+      thead th:nth-child(2), /* Název */
+        tbody td:nth-child(2) {
+        width: 32%;
+        max-width: 32%;
+      }
+
+      thead th:nth-child(3), /* Množství */
+      tbody td:nth-child(3) {
+        width: 7%;
+        max-width: 7%;
+        text-align: center;
+      }
+
+      thead th:nth-child(4), /* Cena/MJ */
+      tbody td:nth-child(4) {
+        width: 13%;
+        max-width: 13%;
+        text-align: right;
+      }
+
+      thead th:nth-child(5), /* Bez DPH */
+      tbody td:nth-child(5) {
+        width: 13%;
+        max-width: 13%;
+        text-align: right;
+      }
+
+      thead th:nth-child(6), /* DPH */
+      tbody td:nth-child(6) {
+        width: 6%;
+        max-width: 6%;
+        text-align: center;
+      }
+
+      thead th:nth-child(7), /* s DPH */
+      tbody td:nth-child(7) {
+        width: 13%;
+        max-width: 13%;
+        text-align: right;
+      }
+
+      tbody td img {
+        max-height: 32px;
+        object-fit: contain;
+        border-radius: 4px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      /* Bao cả summary chiếm 50% trang, canh phải */
+      .summary {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 32px;
+        position: relative;
+        padding-bottom: 12px;
+      }
+
+      .summary-table {
+        width: 50%;
+        margin-left: auto;
+        font-size: 14px;
+      }
+
+      /* XOÁ TẤT CẢ BORDER */
+      .summary-table,
+      .summary-table th,
+      .summary-table td {
+        border: none !important;
+      }
+
+
+
+      .summary-table  th {
+        padding:0 12px;
+        text-align: right;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+      }
+
+
+
+      .summary-table tbody td {
+        padding: 0 12px;
+        font-size: 14px;
+        color: #222;
+      }
+
+      .summary-table tbody td:first-child {
+        text-align: left;
+      }
+      .summary-table tbody th:first-child {
+        text-align: left;
+      }
+
+      .summary-table tbody td + td {
+        text-align: right;
+      }
+
+      /* THANH ĐỎ DƯỚI SUMMARY */
+      .summary::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        height: 2px;
+        background: #dd2e44;
+      }
+
+      .total {
+        text-align: right;
+        margin-top: 12px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #dd2e44;
+      }
+
+      .signature {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 40px;    /* đẩy vào trong 40px khỏi mép phải */
+        margin-top: 16px;       /* thêm khoảng cách lên trên nếu cần */
+      }
+
+      .signature img {
+        height: 100px;          /* phóng to chữ ký */
+        width: auto;            /* giữ tỉ lệ gốc */
+        object-fit: contain;
+        /* nếu muốn thêm khoảng cách bên trái chữ ký, có thể thêm margin-left */
+        /* margin-left: 20px; */
+      }
+
+      .page-footer {
+        position: fixed;
+        left: 10mm;
+        right: 10mm;
+        bottom: 0;
+        font-size: 10px;
+        color: #555;
+        line-height: 1.2;
+        z-index: 1000;
+        padding: 2px 0;
+        background-color: #fff; /* Đảm bảo nền không trong suốt */
+        border-top: 1px solid #ddd; /* Tạo viền trên cho footer */
+      }
+
+      /* đẩy phần nội dung chính lên trên để khỏi bị footer đè */
+      @page {
+        margin-bottom: 15mm;    /* đảm bảo chừa chỗ cho footer */
+      }
+
+
+      @media print {
+  /* Không chia nhỏ .summary qua hai trang */
+      .summary {
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+      table tr {
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        /* Lặp header của bảng detail nếu nó tràn sang trang sau */
+        thead { display: table-header-group; }
+
+        body {
+          padding-bottom: 0;
+        }
+      } 
+      
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="{{logoUrl}}" alt="Vigroup Logo" />
+        </div>
+        <div class="title">
+          <h1>Faktura <span>{{code}}</span></h1>
+          <h2>DAŇOVÝ DOKLAD</h2>
+        </div>
+      </div>
+
+      <!-- Nhà cung cấp & Khách hàng -->
+      <div class="info">
+        <div class="block">
+          <h3>DODAVATEL</h3>
+          <p>{{supplier.companyName}}</p>
+          <p>{{supplier.address}}</p>
+          <p class="spaced">
+            <p>IČO: <span>{{supplier.ico}}</span></p>
+            <p>DIČ: <span>{{supplier.dic}}</span></p>
+          </p>
+          <p>Bankovní účet : <span>{{supplier.bankAccount}}</span></p>
+          <p>Variabilní symbol : <span>{{variableSymbol}}</span></p>
+          <p>Způsob platby : <span>{{statusPayment}}</span></p>
+        </div>
+        <div class="block">
+          <h3>ODBĚRATEL</h3>
+          <p>{{customer.name}}</p>
+          <p>{{customer.street}} {{customer.postalCode}} {{customer.province}}</p>
+          <p class="spaced">
+            <p>IČO: <span>{{customer.ico}}</span></p>
+            <p>DIČ: <span>{{customer.dic}}</span></p>
+          </p>
+          <p>Datum vystavení: <span>{{date}}</span></p>
+          <p>Datum splatnosti: <span>{{dueDate}}</span></p>
+          <p>Datum zdan. plnění: <span>{{date}}</span></p>
+        </div>
+      </div>
+
+      <p>Fakturujeme Vám za dodané zboží či služby:</p>    
+      <!-- Bảng chi tiết -->
+      <table>
+        <thead>
+          <tr>
+            <th>Kód</th>
+            <th>Název</th>
+            <th>Množství</th>
+            <th>Cena/MJ</th>
+            <th>Bez DPH</th>
+            <th>DPH</th>
+            <th>s DPH</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products}}
+          <tr>
+            <td>{{this.code}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.unitGross}} Kč</td>
+            <td>{{this.totalGross}} Kč</td>
+            <td>{{this.tax}} %</td>
+            <td>{{this.totalNet}} Kč</td>
+          </tr>
+
+          {{/each}} {{#each installations}}
+          <tr>
+            <td>—</td>
+            <td>{{this.desc}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.unitGross}} Kč</td>
+            <td>{{this.totalGross}} Kč</td>
+            <td>{{this.tax}} %</td>
+            <td>{{this.totalNet}} Kč</td>
+          </tr>
+          {{/each}} {{#each fuels}}
+          <tr>
+            <td>—</td>
+            <td>Quãng đường: {{this.distance}}</td>
+            <td>{{this.distance}}</td>
+            <td>{{this.unitGross}} Kč</td>
+            <td>{{this.totalGross}} Kč</td>
+            <td>{{this.tax}} %</td>
+            <td>{{this.totalNet}} Kč</td>
+          </tr>
+          {{/each}}
+
+          {{#each shipping}}
+          <tr>
+            <td>—</td>
+            <td>{{shipping.label}}</td>
+            <td>1</td>
+            <td>{{shipping.net}} Kč</td>
+            <td>{{shipping.net}} Kč</td>
+            <td>{{shipping.tax}} Kč</td>
+            <td>{{shipping.gross}} Kč</td>
+          </tr>
+          {{/each}}
+          
+        </tbody>
+      </table>
+      <div class="summary-block">
+        <div class="summary">
+          {{#each taxRates…}}{{/each}}
+        </div>
+        <div class="total">
+          {{totalPrice}} Kč
+        </div>
+  
+        <div class="signature">
+          <img src="{{supplier.imageUrls}}" alt="Vigroup signature" />
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      Společnost je zapsána v obchodním rejstříku vedeném Městským soudem v Praze oddíl C, vložka 285193.
+    </div>
+  </body>
+</html>
