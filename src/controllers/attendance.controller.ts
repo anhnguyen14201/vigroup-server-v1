@@ -372,6 +372,7 @@ export const getAttendancesByMonth = expressAsyncHandler(
  * PUT /api/attendance/update-by-date
  * Cập nhật shifts trong attendance theo ngày
  */
+
 export const updateAttendanceByDate = expressAsyncHandler(
   async (req: any, res: any) => {
     const { _id, shifts } = req.body
@@ -392,27 +393,74 @@ export const updateAttendanceByDate = expressAsyncHandler(
       return
     }
 
+    // Lấy danh sách projectId cần truy vấn (bao gồm projectId của attendance nếu shifts không có)
+    const shiftProjectIds = shifts
+      .map((s: any) => (s.projectId ? String(s.projectId) : null))
+      .filter(Boolean)
+    // đảm bảo có ít nhất projectId của attendance (nếu shifts không chỉ rõ)
+    if (!shiftProjectIds.includes(String(attendance.projectId))) {
+      shiftProjectIds.push(String(attendance.projectId))
+    }
+
+    // Query tất cả projects cần thiết 1 lượt
+    const projects = await Project.find({
+      _id: { $in: shiftProjectIds },
+    })
+      .select('nightShiftPay')
+      .lean()
+
+    const projectMap = new Map<string, { nightShiftPay?: number }>()
+    projects.forEach((p: any) => projectMap.set(String(p._id), p))
+
     let totalHours = 0
     let totalSalary = 0
 
-    const updatedShifts = shifts.map(shift => {
+    const updatedShifts = shifts.map((shift: any) => {
       const { checkIn, checkOut, projectId, notes, shift: shiftType } = shift
-      let hours = 0
+      let hours = 0 as number
       if (checkIn && checkOut) {
         hours = parseFloat(
           calculateTotalHours(new Date(checkIn), new Date(checkOut)).toFixed(2),
         )
       }
+      // Lấy hourlyRate cơ bản từ attendance
+      const baseRate = attendance.hourlyRate || 0
 
+      // Tìm nightShiftPay tương ứng cho project của shift (fallback về attendance.projectId nếu shift.projectId không rõ)
+      const pid = projectId ? String(projectId) : String(attendance.projectId)
+      const proj = projectMap.get(pid)
+      const nightShiftPay =
+        proj && typeof proj.nightShiftPay === 'number'
+          ? proj.nightShiftPay
+          : undefined
+
+      // Tính lương cho shift
+      let salaryForShift = 0 as number
+      let dayShiftHourlyRate = 0 as number
+      let nightShiftHourlyRate = 0
+      if (shiftType === 'shift2' && typeof nightShiftPay === 'number') {
+        // Nếu project có nightShiftPay -> ca 2 tính bằng hours * (hourlyRate + nightShiftPay)
+        nightShiftHourlyRate += parseFloat(
+          (baseRate + nightShiftPay).toFixed(2),
+        )
+        salaryForShift = parseFloat((hours * nightShiftHourlyRate).toFixed(2))
+      } else {
+        // Mặc định hoặc ca 1 -> tính bình thường hours * hourlyRate
+        dayShiftHourlyRate = baseRate
+        salaryForShift = parseFloat((hours * dayShiftHourlyRate).toFixed(2))
+      }
+
+      // Cộng tổng
       totalHours += hours
-      totalSalary += parseFloat(
-        (hours * (attendance.hourlyRate || 0)).toFixed(2),
-      )
+      totalSalary += parseFloat(salaryForShift.toFixed(2))
       return {
         projectId,
         notes,
         checkIn,
         checkOut,
+        dayShiftHourlyRate,
+        nightShiftHourlyRate,
+        salaryForShift,
         shift: shiftType,
         totalShiftHours: parseFloat(hours.toFixed(2)),
       }
@@ -428,7 +476,6 @@ export const updateAttendanceByDate = expressAsyncHandler(
     res.status(200).json({ success: true, data: updated })
   },
 )
-
 export const getAttendanceByProjectAndEmployees = expressAsyncHandler(
   async (req, res) => {
     const projectId = req.query.projectId as string

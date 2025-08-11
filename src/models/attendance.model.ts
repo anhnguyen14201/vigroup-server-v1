@@ -35,6 +35,20 @@ const ShiftSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
+    dayShiftHourlyRate: {
+      type: Number,
+      default: 0,
+    },
+    nightShiftHourlyRate: {
+      type: Number,
+      default: 0,
+    },
+
+    salaryForShift: {
+      type: Number,
+      default: 0,
+    },
   },
   { _id: true },
 )
@@ -68,6 +82,7 @@ const AttendanceSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
     salary: {
       type: Number,
       default: 0,

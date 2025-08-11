@@ -165,7 +165,7 @@ export const signIn = expressAsyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    maxAge: 5 * 60 * 1000, // 15 phút
+    maxAge: 15 * 60 * 1000, // 15 phút
   })
 
   //! Lưu refresh token làm mới vào cookie

@@ -57,7 +57,9 @@ WarrantySchema.pre('save', function (next) {
     const start = this.startDate || new Date()
     const end = new Date(start)
     // Thay vì +3 năm, đổi thành +1 ngày để test
-    end.setDate(end.getDate() + 1)
+    /* end.setDate(end.getDate() + 1) */
+    end.setFullYear(end.getFullYear() + 3)
+
     this.endDate = end
   }
 

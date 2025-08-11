@@ -138,6 +138,12 @@ const Project = new Schema(
       default: 0,
     },
 
+    nightShiftPay: {
+      // Tổng giá trị dự án
+      type: Number,
+      default: 0,
+    },
+
     paymentAmounts: {
       // Mảng lưu số tiền theo từng đợt thanh toán
       type: [Number],
