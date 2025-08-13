@@ -162,7 +162,7 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Order Confirmation</title>
+  <title>Xác nhận đặt hàng</title>
   <style>
     /* === Reset & Base Styles === */
     body, h1, h2, h3, p, table { margin:0; padding:0; }
@@ -261,22 +261,22 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
       <!-- Header -->
       <div class="header">
         <!-- <img src="https://yourdomain.com/logo.png" alt="${companyInfo.companyName} Logo"/> -->
-        <h1>Thank You for Your Order!</h1>
+        <h1>Cảm ơn Quý khách đã đặt hàng!</h1>
       </div>
 
       <!-- Body -->
       <div class="body">
         <p class="greeting">
-          Hi ${personalInfo.fullName},<br>
-          We’re excited to confirm that we’ve received your order at. Below are the details:
+          Xin Chào! ${personalInfo.fullName},<br>
+          Chúng tôi rất vui thông báo rằng đã nhận được đơn hàng của bạn. Thông tin chi tiết như sau:
         </p>
 
         <!-- Billing & Shipping Info -->
         <div class="section">
-          <h2>Order Information</h2>
+          <h2>Chi tiết đơn hàng</h2>
           <div class="info-grid">
             <div class="info-item">
-              <h3>Billing</h3>
+              <h3>Thông tin khách hàng</h3>
               <p>
                 ${personalInfo.fullName}<br>
                 ${personalInfo.email}<br>
@@ -284,7 +284,7 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
               </p>
             </div>
             <div class="info-item">
-              <h3>Shipping</h3>
+              <h3>Địa chỉ nhận hàng</h3>
               <p>
                 ${personalInfo.street}<br>
                 ${personalInfo.postalCode} ${personalInfo.province}<br>
@@ -296,24 +296,24 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
 
         <!-- Shipping Method -->
         <div class="section">
-          <h2>Shipping Method</h2>
+          <h2>Phương thức vận chuyển</h2>
           <p>
             ${shippingMethod}<br>
-            Fee: ${shippingCost.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}
+            Phí dịch vụ: ${shippingCost.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}
           </p>
         </div>
 
         <!-- Products Table -->
         <div class="section">
-          <h2>Items in Your Order</h2>
+          <h2>Các sản phẩm trong đơn hàng của bạn</h2>
           <table class="order-table">
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Unit Price</th>
-                <th>Qty</th>
-                <th>Line Total</th>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
               </tr>
             </thead>
             <tbody>
@@ -324,9 +324,9 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
 
         <!-- Summary & Button -->
         <div class="summary">
-          <p>Subtotal: ${total.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
-          <p>Shipping: ${shippingCost.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
-          <p class="total">Grand Total: ${(total + shippingCost).toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
+          <p>Tổng: ${total.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
+          <p>Phí vận chuyển: ${shippingCost.toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
+          <p class="total">Thành tiền: ${(total + shippingCost).toLocaleString('cs-CZ', { style: 'currency', currency: 'CZK', currencyDisplay: 'narrowSymbol' })}</p>
         </div>
       </div>
 
@@ -347,7 +347,7 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
   try {
     await sendEmail({
       email: personalInfo.email,
-      subject: 'Order Confirmation',
+      subject: 'Xác nhận đặt hàng',
       html,
     })
   } catch (emailErr) {
@@ -510,7 +510,7 @@ export function getOrderConfirmationEmail(data: {
       currencyDisplay: 'narrowSymbol',
     })
 
-  const subject = `Your order at ${companyName} has been confirmed!`
+  const subject = `Chúng tôi xin thông báo: đơn hàng của Quý khách tại ${companyName} đã được xác nhận.`
 
   const html = `
 <!DOCTYPE html>
@@ -518,7 +518,7 @@ export function getOrderConfirmationEmail(data: {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Your Order Is Confirmed!</title>
+  <title>Đơn hàng của Quý khách đã được xác nhận!</title>
   <style>
     body, h1, p, table { margin:0; padding:0; }
     body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
@@ -541,33 +541,33 @@ export function getOrderConfirmationEmail(data: {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Your Order Is Confirmed!</h1>
+      <h1>Đơn hàng của Quý khách đã được xác nhận!</h1>
     </div>
     <div class="body">
-      <p>Hello <strong>${personalInfo.fullName}</strong>,</p>
-      <p>Thank you for choosing ${companyName}! We’re thrilled to let you know that your order has been successfully received and is now being processed. Below, you’ll find all the details.</p>
+      <p>Xin Chào! <strong>${personalInfo.fullName}</strong>,</p>
+      <p>Cảm ơn bạn đã tin tưởng chúng tôi ${companyName}! Chúng tôi vô cùng hân hạnh xác nhận rằng đơn hàng của Quý khách đã được tiếp nhận thành công và hiện đang được xử lý. Xin mời xem thông tin chi tiết bên dưới.</p>
 
       <div class="info">
         <div>
-          <h2>Shipping Details</h2>
-          <p>Receiver: ${personalInfo.fullName}</p> 
-          <p>Phone: ${personalInfo.phone}</p> 
-          <p>Address: ${personalInfo.street}, ${personalInfo.postalCode} ${personalInfo.province}, ${personalInfo.country}</p>
+          <h2>Thông tin chi tiết vận chuyển</h2>
+          <p>Người nhận: ${personalInfo.fullName}</p> 
+          <p>Số điện thoại: ${personalInfo.phone}</p> 
+          <p>Địa chỉ: ${personalInfo.street}, ${personalInfo.postalCode} ${personalInfo.province}, ${personalInfo.country}</p>
         </div>
         <div>
-          <h2>Shipping Method</h2>
-          <p>${shippingMethod} — Fee: ${subCzk(shippingCost)}</p> 
+          <h2>Phương thức vận chuyển</h2>
+          <p>${shippingMethod} — Phí dịch vụ: ${subCzk(shippingCost)}</p> 
         </div>
       </div>
 
       <table>
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Line Total</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
           </tr>
         </thead>
         <tbody>
@@ -576,9 +576,9 @@ export function getOrderConfirmationEmail(data: {
       </table>
 
       <div class="summary">
-        <div>Subtotal: ${subCzk(subtotal)}</div>
-        <div>Shipping: ${subCzk(shippingCost)}</div>
-        <div class="total">Grand Total: ${subCzk(total + shippingCost)}</div>
+        <div>Tổng: ${subCzk(subtotal)}</div>
+        <div>Phí vận chuyển: ${subCzk(shippingCost)}</div>
+        <div class="total">Thành tiền: ${subCzk(total + shippingCost)}</div>
       </div>
     </div>
     <div class="footer">
@@ -604,7 +604,7 @@ export function getOrderCancelledEmail(data: {
 }): { subject: string; html: string } {
   const { personalInfo, orderId, companyName } = data
 
-  const subject = `Your order at ${companyName} has been cancelled!`
+  const subject = `Chúng tôi xin thông báo: đơn hàng của Quý khách tại ${companyName} đã bị hủy.`
 
   const html = `
 <!DOCTYPE html>
@@ -612,7 +612,7 @@ export function getOrderCancelledEmail(data: {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Your Order Has Been Cancelled</title>
+  <title>Chúng tôi xin thông báo đơn hàng của bạn đã bị hủy.</title>
   <style>
     body, h1, p { margin:0; padding:0; }
     body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
@@ -627,17 +627,17 @@ export function getOrderCancelledEmail(data: {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Order Cancelled</h1>
+      <h1>Đơn hàng đã bị hủy</h1>
     </div>
     <div class="body">
-      <p>Hi <strong>${personalInfo.fullName}</strong>,</p>
-      <p>We’re sorry to let you know that your order <strong>#${orderId}</strong> has been cancelled.  </p>
-      <p>Rest assured, any reserved items have been returned to stock and no charges will be applied.</p>
-      <p>If you have any questions or would like to place a new order, we’re here to help!</p>
+      <p>Xin Chào! <strong>${personalInfo.fullName}</strong>,</p>
+      <p>Chúng tôi rất tiếc phải thông báo rằng đơn hàng của bạn <strong>#${orderId}</strong> đã bị hủy.  </p>
+      <p>Quý khách yên tâm, các sản phẩm đã được đặt trước đã được trả về kho và không có phí nào được tính thêm.</p>
+      <p>Nếu Quý khách có bất kỳ thắc mắc hoặc cần đặt đơn hàng mới, chúng tôi luôn sẵn lòng hỗ trợ!</p>
     </div>
     <div class="footer">
-      Thank you for considering ${companyName}.<br/>
-      Feel free to reach out at any time.
+      Xin cảm ơn Quý khách đã cân nhắc ${companyName}.<br/>
+      Xin vui lòng liên hệ bất kỳ lúc nào nếu Quý khách cần hỗ trợ.
     </div>
   </div>
 </body>

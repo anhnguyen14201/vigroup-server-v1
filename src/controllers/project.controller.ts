@@ -279,7 +279,9 @@ export const getAllProjects = expressAsyncHandler(async (req, res) => {
     )
   } else {
     // 5. Chỉ admin mới populate các trường nhạy cảm
-    q = q.select('_id imageUrls thumbnailUrls projectType translations')
+    q = q.select(
+      '_id imageUrls thumbnailUrls location projectType translations',
+    )
   }
   // 8. Thực thi query và đếm số bản ghi phù hợp với filters
   const projects = await q
