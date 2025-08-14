@@ -166,6 +166,7 @@ export const signIn = expressAsyncHandler(async (req, res) => {
     secure: true,
     sameSite: 'none',
     maxAge: 15 * 60 * 1000, // 15 phút
+    path: '/',
   })
 
   //! Lưu refresh token làm mới vào cookie
@@ -174,6 +175,7 @@ export const signIn = expressAsyncHandler(async (req, res) => {
     secure: true,
     sameSite: 'none',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+    path: '/',
   })
   //! Trả về phản hồi thành công cùng với tokens và thông tin người dùng
   res.status(200).json({
@@ -252,7 +254,7 @@ export const refreshAccessToken = expressAsyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    maxAge: 5 * 60 * 1000,
+    maxAge: 15 * 60 * 1000,
   })
 
   //! Trả về access token mới
