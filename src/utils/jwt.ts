@@ -4,12 +4,12 @@ const SECRET_CODE = process.env.SECRET_CODE || 'secretKey'
 
 // Cập nhật hàm generateAccessToken để nhận payload là một object
 export const generateAccessToken = (payload: object) => {
-  return jwt.sign(payload, SECRET_CODE, { expiresIn: '15m' })
+  return jwt.sign(payload, SECRET_CODE, { expiresIn: '2m' })
 }
 
 // Tương tự cho generateRefreshToken
 export const generateRefreshToken = (payload: object) => {
-  return jwt.sign(payload, SECRET_CODE, { expiresIn: '7d' })
+  return jwt.sign(payload, SECRET_CODE, { expiresIn: '5m' })
 }
 
 // utils/jwt.ts

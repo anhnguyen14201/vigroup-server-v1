@@ -1,6 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import puppeteer from 'puppeteer'
+import { fileURLToPath } from 'url'
+
+// Tạo __filename và __dirname cho ESM
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 interface Supplier {
   companyName: string

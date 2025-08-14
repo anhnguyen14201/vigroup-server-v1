@@ -57,7 +57,9 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
   let companyInfo = bodyCompany
   let customerId: string | null = null
 
-  if (_id) {
+  console.log(req.body)
+
+  /* if (_id) {
     // Logged in: fetch user profile
     customerId = _id
     const user = await User.findById(customerId).lean()
@@ -80,6 +82,16 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
       dic: user.dic || companyInfo.dic,
       ico: user.ico || companyInfo.ico,
     }
+  } */
+
+  // Nếu có _id, chỉ liên kết đơn hàng với user, KHÔNG override thông tin từ user
+  if (_id) {
+    // (Tuỳ chọn) Kiểm tra _id có tồn tại để tránh gán sai
+    const exists = await User.exists({ _id })
+    if (!exists) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+    customerId = _id
   }
 
   // Validate shipping method
@@ -288,7 +300,6 @@ export const createOrder = expressAsyncHandler(async (req: any, res: any) => {
               <p>
                 ${personalInfo.street}<br>
                 ${personalInfo.postalCode} ${personalInfo.province}<br>
-                ${personalInfo.country}
               </p>
             </div>
           </div>
@@ -552,7 +563,7 @@ export function getOrderConfirmationEmail(data: {
           <h2>Thông tin chi tiết vận chuyển</h2>
           <p>Người nhận: ${personalInfo.fullName}</p> 
           <p>Số điện thoại: ${personalInfo.phone}</p> 
-          <p>Địa chỉ: ${personalInfo.street}, ${personalInfo.postalCode} ${personalInfo.province}, ${personalInfo.country}</p>
+          <p>Địa chỉ: ${personalInfo.street}, ${personalInfo.postalCode} ${personalInfo.province}</p>
         </div>
         <div>
           <h2>Phương thức vận chuyển</h2>
