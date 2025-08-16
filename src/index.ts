@@ -13,7 +13,7 @@ const app = express()
 app.use(cookieParser())
 app.use(
   cors({
-    origin: 'https://vigroup-client.vercel.app',
+    origin: ['https://vigroup-client.vercel.app'],
     methods: ['POST', 'PUT', 'GET', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],

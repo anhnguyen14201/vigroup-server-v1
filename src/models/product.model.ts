@@ -1,5 +1,13 @@
 import mongoose, { Schema } from 'mongoose'
 
+const calcStockStatus = (qty: any) => {
+  const n = Number(qty ?? 0)
+  if (isNaN(n)) return 'In Stock'
+  if (n <= 0) return 'Out of Stock'
+  if (n < 10) return 'Low Stock'
+  return 'In Stock'
+}
+
 const Product = new Schema(
   {
     translations: [
@@ -36,8 +44,12 @@ const Product = new Schema(
     sold: { type: Number, default: 0 },
 
     // Persisted field stored in DB
-    stockStatus: { type: String, default: 'In Stock' },
-
+    stockStatus: {
+      type: String,
+      enum: ['In Stock', 'Low Stock', 'Out of Stock'],
+      default: 'In Stock',
+      trim: true,
+    },
     thumbnailUrls: [String],
     imageUrls: [String],
     isFeatured: { type: Boolean, default: false },
@@ -46,21 +58,48 @@ const Product = new Schema(
   { versionKey: false, timestamps: true },
 )
 
-// Pre-save hook to update stockStatus field each time before saving
-Product.pre('findOneAndUpdate', function (next) {
-  const update = this.getUpdate() as any
-  if (update.quantity !== undefined) {
-    const qty = update.quantity
-    let newStatus = 'In Stock'
-    if (qty <= 0) newStatus = 'Out of Stock'
-    else if (qty < 10) newStatus = 'Low Stock'
-    // Gán thêm vào câu lệnh update
-    this.setUpdate({
-      ...update,
-      stockStatus: newStatus,
-    })
+Product.pre('save', function (next) {
+  // @ts-ignore
+  const doc: any = this
+  if (doc.isNew || doc.isModified('quantity')) {
+    doc.stockStatus = calcStockStatus(doc.quantity)
   }
   next()
+})
+
+// Pre-save hook to update stockStatus field each time before saving
+Product.pre('findOneAndUpdate', async function (next) {
+  try {
+    // this is a Query
+    const update: any = this.getUpdate() || {}
+    let qty: number | undefined
+
+    if (typeof update.quantity !== 'undefined') {
+      qty = Number(update.quantity)
+    } else if (update.$set && typeof update.$set.quantity !== 'undefined') {
+      qty = Number(update.$set.quantity)
+    } else if (update.$inc && typeof update.$inc.quantity !== 'undefined') {
+      // cần lấy giá trị hiện tại trong DB để cộng $inc
+      const docToUpdate: any = await this.model
+        .findOne(this.getQuery())
+        .select('quantity')
+        .lean()
+      const currentQty = docToUpdate?.quantity ?? 0
+      qty = Number(currentQty) + Number(update.$inc.quantity)
+    }
+
+    if (typeof qty !== 'undefined' && !isNaN(qty)) {
+      const newStatus = calcStockStatus(qty)
+      // đảm bảo dùng $set (không phá các phần update khác)
+      const newUpdate = { ...update }
+      if (!newUpdate.$set) newUpdate.$set = {}
+      newUpdate.$set.stockStatus = newStatus
+      this.setUpdate(newUpdate)
+    }
+    next()
+  } catch (err: any) {
+    next(err)
+  }
 })
 
 export default mongoose.model('Product', Product)
